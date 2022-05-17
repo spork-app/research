@@ -1,12 +1,10 @@
 export default {
     state: {
-        topics: [],
-        research: [],
         researchLoading: false,
     },
     getters: {
-        topics: (state) => state.topics,
-        research: (state) => state.research,
+        topics: (state, getters, rootGetters) => rootGetters.features?.research ?? [],
+        research: (state, getters, rootGetters) => rootGetters.features?.research ?? [],
         researchLoading: state => state.researchLoading,
     },
     mutations: {
@@ -18,36 +16,21 @@ export default {
         }
     },
     actions: {
-        async getResearches({ state }) {
-            const { data: { data } } = await axios.get(buildUrl('/api/feature-list', {
-                filter: {
-                    feature: 'research',
-                },
-                include: 'notes'
-            }));
-
-            state.topics = data;
-        },
-        async updateResearch({ state }, featureList) {
-            const { data } = await axios.put(buildUrl('/api/feature-list/'+featureList.id), featureList);
-
-            state.topics = state.topics.map(topic => {
-                if (topic.id !== featureList.id) {
-                    return topic;
-                }
-
-                return data;
-            });
-        },
         async search({ state, commit }, { search, url }) {
             commit('setResearchLoading', true);
-            const { data } = await axios.get(url ?? buildUrl('/api/research', {
+            const { data } = await axios.get(url ?? buildUrl('/api/feature-list', {
                 q: search,
             }));
 
             commit('setResearch', data);
             commit('setResearchLoading', false);
         },
+        async duplicateResearch({ dispatch }, { name, settings, feature, slug }) {
+            await axios.post(buildUrl('/api/feature-list'), {
+                name: name + ' - Duplicate', settings, feature, slug
+            });
+            dispatch('getFeatureLists', {});
+        }
     },
 };
 

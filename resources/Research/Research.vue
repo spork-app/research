@@ -42,7 +42,6 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('getResearches');
     }
 }
 </script>

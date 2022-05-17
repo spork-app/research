@@ -216,7 +216,7 @@ export default {
                 return null;
             }
 
-            const topic = this.$store.getters.topics.filter(topic => topic.id == newVal)[0];
+            const topic = this.$store.getters.features?.research?.filter(topic => topic.id == newVal)[0];
 
             if (!topic.settings || !topic.settings.links) {
                 topic.settings = {
@@ -243,7 +243,7 @@ export default {
                     href: '#',
                     icon: PencilIcon,
                     current: false,
-                    children: this.$store.getters.topics.map(list => ({
+                    children: this.$store.getters.features?.research?.map(list => ({
                         name: list.name,
                         href: '/research/' + list.id,
                         current: false,
@@ -278,8 +278,6 @@ export default {
         },
     },
     async mounted() {
-        await this.$store.dispatch('getResearches');
-
         this.setTopic(this.$route.params.id)
     },
     setup() {
