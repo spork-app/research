@@ -32,11 +32,11 @@ export default {
                     href: '#',
                     icon: PencilIcon,
                     current: false,
-                    children: this.$store.getters.topics.map(list => ({
+                    children: this.$store.getters?.features?.research?.map(list => ({
                         name: list.name,
                         href: '/research/' + list.id,
                         current: false,
-                    }))
+                    })) ?? []
                 },
             ]
         }

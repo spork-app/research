@@ -10,7 +10,7 @@ Route::middleware(['api', 'auth:sanctum'])->get('research', function (\Google\Cl
     $results = cache()->remember(sprintf('%s.%s.google-search', $page, request()->get('q')), now()->addDay(), function () use ($client, $page) {
         $api = new CustomSearchAPI($client);
         return $api->cse->listCse([
-            'cx' => '005170087081803266169:ipknn59okgm',
+            'cx' => env('GOOGLE_SEARCH_API_KEY'),
             'q' => request()->get('q'),
             'start' => $page * 10,
         ]);

@@ -62,7 +62,7 @@
                             } else {
                                 topic.settings.links.push(item.link)
                             }
-                            this.$store.dispatch('updateResearch', this.topic)
+                            $store.dispatch('updateResearch', topic)
                         }"
                         class="w-8 h-8 absolute bottom-0 right-0 z-10 border rounded-full flex items-center justify-center bg-white dark:bg-gray-500 dark:border-gray-400 dark:text-gray-200">
                         <PlusIcon v-if="!topic.settings.links.includes(item.link)" class="w-3 h-3"></PlusIcon>
@@ -149,6 +149,7 @@ export default {
 
             // Minus 1 because the cursor is at the end of the inserted text
             this.textarea.selectionStart = this.textarea.selectionEnd = start + clipboard.length;
+            this.topic.settings.body = this.textarea.value;
         },
         scrollSync() {
             [this.textarea, this.markdown].forEach(element => {
@@ -165,8 +166,8 @@ export default {
         ctrlSSaving(keyboardEvent) {
             if (keyboardEvent.key === 's') {
                 keyboardEvent.preventDefault();
-
-                this.$store.dispatch('updateResearch', this.topic)
+                console.log('saving', this.topic)
+                this.$store.dispatch('updateFeature', this.topic)
             }
         },
         /** @var KeyboardEvent keyboardEvent */

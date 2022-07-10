@@ -29,7 +29,10 @@ export default {
             await axios.post(buildUrl('/api/feature-list'), {
                 name: name + ' - Duplicate', settings, feature, slug
             });
-            dispatch('getFeatureLists', {});
+            dispatch('fetchFeatures');
+        },
+        updateResearch({ dispatch, commit }, data) {
+            console.log(data)
         }
     },
 };

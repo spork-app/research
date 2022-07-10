@@ -14,5 +14,12 @@
         "psr-4": {
             "Spork\\Research\\": "src/"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Spork\\Research\\ResearchServiceProvider"
+            ]
+        }
     }
 }

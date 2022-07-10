@@ -10,7 +10,7 @@ class ResearchServiceProvider extends ServiceProvider
 {
     public function register()
     {
-        Spork::addFeature('research', 'BeakerIcon', '/research');
+        Spork::addFeature('research', 'BeakerIcon', '/research', 'tool');
 
         if (config('spork.research.enabled')) {
             Route::prefix('api')->group(__DIR__ . '/../routes/api.php');
