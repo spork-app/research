@@ -2,17 +2,26 @@
     <div class="flex flex-wrap gap-4 m-4">
         <feature-required feature="research" allow-more-than-one></feature-required>
         <div class="w-full font-medium text-gray-600 dark:text-gray-300 uppercase ml-3">Recent</div>
-        <router-link
-            :to="'/research/'+ topic.id" v-for="(topic, i) in $store.getters.features?.research ?? []" 
+        <div
+            v-for="(topic, i) in $store.getters.features?.research ?? []"
             class="w-64 p-3 border border-gray-200 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-600" 
             @contextmenu.prevent="(e) => openContextMenu(e, topic)"
-            
             :key="'research-'+i"
             >
-            <div  class="font-medium truncate">{{ topic.name }}</div>
+            <router-link           
+                :to="'/research/'+ topic.id"
+            >
+                <div  class="font-medium truncate">{{ topic.name }}</div>
+            </router-link>
             <pre class=" h-48 shadow-inset overflow-hidden text-xs border-t py-2 my-2">{{ topic.settings.body }}</pre>
-            <div class="text-gray-500 dark:text-gray-200 border-t mt-4 pt-2">{{ date(topic.updated_at) }}</div>
-        </router-link>
+            <div class="text-gray-500 dark:text-gray-200 border-t mt-4 pt-2 flex items-center justify-between">
+                <span>{{ date(topic.updated_at) }}</span>
+                
+                <button @click="() => deleteFeature(topic)">
+                    <TrashIcon class="w-4 h-4 text-red-500" />
+                </button>
+            </div>
+        </div>
 
         <div  v-if="openContext && openForTopic">
             <div @click="openContext = false" class="absolute inset-0 z-0 bg-gray-900/20 cusor-pointer"></div>
@@ -100,8 +109,9 @@ export default {
             this.$store.dispatch('duplicateResearch', this.openForTopic);
             this.closeMenu();
         },
-        deleteFeature() {
-            this.$store.dispatch('deleteFeature', this.openForTopic);
+        deleteFeature(feature = undefined) {
+            console.log({ feature })
+            this.$store.dispatch('deleteFeature', feature ?? this.openForTopic);
             this.closeMenu();
         },
         renameFeature() {
