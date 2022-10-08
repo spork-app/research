@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import DualMenuPanel from "@components/DualMenuPanel";
+import DualMenuPanel from "@core/components/DualMenuPanel";
 import {CreditCardIcon, HomeIcon, PencilIcon, ShoppingCartIcon} from "@heroicons/vue/outline";
 
 export default {

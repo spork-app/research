@@ -2,7 +2,7 @@
 
 namespace Spork\Research;
 
-use App\Spork;
+use Spork\Core\Spork;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 

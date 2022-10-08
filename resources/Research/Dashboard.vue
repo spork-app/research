@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import FeatureRequired from '@components/FeatureRequired.vue';
+import FeatureRequired from '@core/components/FeatureRequired.vue';
 import { 
     TrashIcon,
     ExternalLinkIcon,
