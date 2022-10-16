@@ -4,7 +4,7 @@ namespace Spork\Research\Tests;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Orchestra\Testbench\TestCase as TestbenchTestCase;
-use Spork\Research\ResearchServiceProvider.php;
+use Spork\Research\ResearchServiceProvider;
 
 class TestCase extends TestbenchTestCase
 {
@@ -20,7 +20,7 @@ class TestCase extends TestbenchTestCase
     protected function getPackageProviders($app)
     {
         return [
-            ResearchServiceProvider.php::class,
+            ResearchServiceProvider::class,
         ];
     }
 }
