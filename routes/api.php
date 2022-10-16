@@ -3,12 +3,13 @@
 use Google\Service\CustomSearchAPI;
 use Google\Service\CustomSearchAPI\Search;
 
-Route::middleware(['api', 'auth:sanctum'])->get('research', function (\Google\Client $client) {
+Route::middleware(['api', 'auth:sanctum'])->get('research', function (Google\Client $client) {
     $page = request()->get('page', request()->get('start') / 10);
 
     /** @var Search $results */
     $results = cache()->remember(sprintf('%s.%s.google-search', $page, request()->get('q')), now()->addDay(), function () use ($client, $page) {
         $api = new CustomSearchAPI($client);
+
         return $api->cse->listCse([
             'cx' => env('GOOGLE_SEARCH_API_KEY'),
             'q' => request()->get('q'),
@@ -28,6 +29,6 @@ Route::middleware(['api', 'auth:sanctum'])->get('research', function (\Google\Cl
     $parts = parse_url(request()->url());
 
     return (new \Illuminate\Pagination\LengthAwarePaginator($data, (int) $results->getSearchInformation()->totalResults, 10, $page, [
-        'path' => sprintf('%s://%s%s?%s', $parts['scheme'], $parts['host'], $parts['path'], http_build_query(request()->except('page')))
+        'path' => sprintf('%s://%s%s?%s', $parts['scheme'], $parts['host'], $parts['path'], http_build_query(request()->except('page'))),
     ]))->onEachSide(1);
 });

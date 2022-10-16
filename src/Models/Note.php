@@ -2,14 +2,13 @@
 
 namespace Spork\Research\Models;
 
-use Spork\Core\Models\FeatureList;
-use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Kregel\LaravelAbstract\AbstractEloquentModel;
 use Kregel\LaravelAbstract\AbstractModelTrait;
 use Laravel\Scout\Searchable;
 use Spatie\Tags\HasTags;
+use Spork\Core\Models\FeatureList;
 
 class Note extends Model implements AbstractEloquentModel
 {
@@ -27,7 +26,7 @@ class Note extends Model implements AbstractEloquentModel
         return [
             'name' => 'string',
             'body' => 'required|string',
-            'url' => 'url|string'
+            'url' => 'url|string',
         ];
     }
 
@@ -36,7 +35,7 @@ class Note extends Model implements AbstractEloquentModel
         return [
             'name' => 'string',
             'body' => 'string',
-            'url' => 'url|string'
+            'url' => 'url|string',
         ];
     }
 
